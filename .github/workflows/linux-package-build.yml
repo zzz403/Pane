@@ -44,7 +44,9 @@ jobs:
         run: |
           echo 'CFLAGS=-march=x86-64 -mtune=generic' >> "$GITHUB_ENV"
           echo 'CXXFLAGS=-march=x86-64 -mtune=generic' >> "$GITHUB_ENV"
-      - run: pnpm install --frozen-lockfile
+      # No install scripts: electron-builder rebuilds the native modules for
+      # the target arch while packaging (npmRebuild).
+      - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: node --test scripts/test-packaged-native-architecture.js
       - name: Build native ${{ matrix.arch }} Linux packages
         run: pnpm run build:linux:${{ matrix.arch }}
