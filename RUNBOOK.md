@@ -122,11 +122,19 @@ unchecked builds, renders and audits the cask, uploads the packaging artifact,
 runs `publish`'s merge and checksum steps into a `release-metadata-vX.Y.Z`
 artifact, and publishes nothing. Its artifacts are kept for one day. Uncheck
 `sign` too for a dry run that neither signs nor notarizes:
-`gh workflow run build.yml --ref <branch> -f publish=false -f sign=false -f release_tag=v0.0.0-bench`. `HOMEBREW_TAP_TOKEN` permits the cask push; without it,
-the Homebrew job logs a notice and skips. npm publishes with `--provenance`.
+`gh workflow run build.yml --ref <branch> -f publish=false -f sign=false -f release_tag=v0.0.0-bench`.
+`HOMEBREW_TAP_TOKEN` permits the cask push; without it, the Homebrew job logs
+a notice and skips. npm publishes with `--provenance`.
 
 `CI result` is the check branch protection requires. It fails if another
 `Code Quality` job fails or is cancelled.
+
+`node scripts/ci-timings.mjs --since <date> --until <time>` writes
+`ci-timings.json`: the wall time (first job start to last job end, attempt 1)
+of every successful run of the CI, release and deploy workflows in that window,
+annotated with the CI speed PRs each run contains. It reads the API through
+`gh` and caches each run's jobs, so a re-run of the same window makes only the
+listing calls.
 
 ## Recovery and rollback
 
