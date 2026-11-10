@@ -152,7 +152,8 @@ the Homebrew job logs a notice and skips. npm publishes with `--provenance`.
 
 Run `Nightly / Canary Release` from the Actions tab. Choose `nightly` or
 `canary` and a branch, tag or SHA (`main` by default). The result is a GitHub
-prerelease for manual testing; stable users never receive it.
+prerelease for manual testing; stable users never receive it. Check
+`dry_run` to build every package without creating the tag or prerelease.
 
 ## Remote PWA preview
 
